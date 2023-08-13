@@ -42,10 +42,28 @@ f64 clock(char* s) {
     return double(duration.count()) * microseconds::period::num / microseconds::period::den;
 }
 
+constexpr unsigned char n = 5;
+
+void float_mark() {
+    cout << GREEN << "\nStart test 3e6 random double input and output" << std::endl;
+    f64 cstd = 0, fstr = 0, iostr = 0;
+    for (i32 i = 1; i <= n; ++i) {
+        system("./out/float/data");
+        cstd += clock("./out/float/cstdio");
+        fstr += clock("./out/float/fstream");
+        iostr += clock("./out/float/iostream");
+    }
+    cstd /= n, fstr /= n, iostr /= n;
+
+    cout << '\n'
+         << RESET << "freopen + scanf + printf " << CYAN << cstd << RESET << "sec\n"
+         << RESET << "ifstream + ofstream " << CYAN << fstr << RESET << "sec\n"
+         << RESET << "freopen + cin + cout " << CYAN << iostr << RESET << "sec\n";
+}
+
 void int_float_mark() {
     cout << GREEN << "\nStart test 1.5e6 random long long int and 1.5e6 random double input and output" << std::endl;
     f64 cstd = 0, fstr = 0, iostr = 0;
-    i32 n = 10;
     for (i32 i = 1; i <= n; ++i) {
         system("./out/i_f/data");
         cstd += clock("./out/i_f/cstdio");
@@ -62,8 +80,7 @@ void int_float_mark() {
 
 void int_mark() {
     cout << GREEN << "\nStart test 3e6 random long long int input and output" << std::endl;
-    f64 cstd = 0, fstr = 0, iostr = 0, ffstr = 0, fstd = 0;
-    i32 n = 10;
+    f64 cstd = 0, fstr = 0, iostr = 0, ffstr = 0, fstd = 0, fr = 0;
     for (i32 i = 1; i <= n; ++i) {
         system("./out/int/data");
         cstd += clock("./out/int/cstdio");
@@ -71,16 +88,42 @@ void int_mark() {
         iostr += clock("./out/int/iostream");
         ffstr += clock("./out/int/fastio_with_fstream");
         fstd += clock("./out/int/fastio_with_stdio");
+        fr += clock("./out/int/fread");
     }
-    cstd /= n, fstr /= n, iostr /= n, ffstr /= n, fstd /= n;
+    cstd /= n, fstr /= n, iostr /= n, ffstr /= n, fstd /= n, fr /= n;
 
     cout << '\n'
          << RESET << "freopen + scanf + printf " << CYAN << cstd << RESET << "sec\n"
          << RESET << "ifstream + ofstream " << CYAN << fstr << RESET << "sec\n"
          << RESET << "freopen + cin + cout " << CYAN << iostr << RESET << "sec\n"
          << RESET << "fastio + cstdio " << CYAN << fstd << RESET << "sec\n"
-         << RESET << "fastio + fstream " << CYAN << ffstr << RESET << "sec\n";
+         << RESET << "fastio + fstream " << CYAN << ffstr << RESET << "sec\n"
+         << RESET << "fread + fwrite " << CYAN << fr << RESET << "sec\n";
 }
+
+void uint_mark() {
+    cout << GREEN << "\nStart test 3e6 random unsigned long long int input and output" << std::endl;
+    f64 cstd = 0, fstr = 0, iostr = 0, ffstr = 0, fstd = 0, fr = 0;
+    for (i32 i = 1; i <= n; ++i) {
+        system("./out/uint/data");
+        cstd += clock("./out/uint/cstdio");
+        fstr += clock("./out/uint/fstream");
+        iostr += clock("./out/uint/iostream");
+        ffstr += clock("./out/uint/fastio_with_fstream");
+        fstd += clock("./out/uint/fastio_with_stdio");
+        fr += clock("./out/uint/fread");
+    }
+    cstd /= n, fstr /= n, iostr /= n, ffstr /= n, fstd /= n, fr /= n;
+
+    cout << '\n'
+         << RESET << "freopen + scanf + printf " << CYAN << cstd << RESET << "sec\n"
+         << RESET << "ifstream + ofstream " << CYAN << fstr << RESET << "sec\n"
+         << RESET << "freopen + cin + cout " << CYAN << iostr << RESET << "sec\n"
+         << RESET << "fastio + cstdio " << CYAN << fstd << RESET << "sec\n"
+         << RESET << "fastio + fstream " << CYAN << ffstr << RESET << "sec\n"
+         << RESET << "fread + fwrite " << CYAN << fr << RESET << "sec\n";
+}
+
 
 int main() {
     std::ios::sync_with_stdio(false);
@@ -90,13 +133,17 @@ int main() {
     cout.setf(std::ios::fixed);
     cout << std::setprecision(3);
 
-    system("echo IO Test By Tibrella | figlet | lolcat --spread=3 --speed=40");
+    // system("echo IO Test By Tibrella | figlet | lolcat --spread=3 --speed=40");
 
-    cout << CYAN << "This test program will generate data and test for 10 times, then take the average for the final result" << '\n';
+    cout << CYAN << "This test program will generate data and test for " << (short)n << " times, then take the average for the final result" << '\n';
+
+    float_mark();
 
     int_float_mark();
 
     int_mark();
+
+    uint_mark();
 
     return 0;
 }

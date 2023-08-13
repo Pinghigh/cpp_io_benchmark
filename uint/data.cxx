@@ -10,7 +10,7 @@ using f64 = double;
 
 std::random_device sd;
 std::mt19937_64 data(sd());
-std::uniform_int_distribution<i64> itg(LLONG_MIN, LLONG_MAX);
+std::uniform_int_distribution<u64> itg(0, ULLONG_MAX);
 
 int main() {
   std::ios::sync_with_stdio(false);
