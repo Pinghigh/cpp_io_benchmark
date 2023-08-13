@@ -1,6 +1,7 @@
 /out/float/*
 /out/i_f/*
 /out/int/*
+/out/uint/*
 /out/benchmark
 /data.in
 /res.out
