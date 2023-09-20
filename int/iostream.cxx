@@ -2,10 +2,9 @@
 
 using namespace std;
 
-using u64 = unsigned long long;
-using f64 = double;
+using i64 = long long;
 
-u64 a, b;
+i64 a, b;
 int main() {
     std::ios::sync_with_stdio(false);
     cin.tie(nullptr);

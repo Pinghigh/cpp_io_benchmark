@@ -25,45 +25,50 @@ chmod +x start.sh
 硬件：
 ```
 ╔═════════ Hardware Information ═════════╗
-  HST => HLYL-WXX9 (M1030)
-  CPU => AMD Ryzen 7 4800H (16) @ 4.3 GHz
-  GPU => AMD Renoir
+  HST => Windows Subsystem for Linux - Arch (2.0.0.0)
+  CPU => Intel(R) Core(TM) i5-10400 (12) @ 2.903998 GHz
 ╟───────── Software Information ─────────╢
   SYS => Arch Linux x86_64
-  KER => 6.4.10-1-tikogasa-zen2
-  WMN => Hyprland (Wayland)
   SHE => fish 3.6.1
-  TER => kitty 0.29.2
   FON => monospace (15.0pt)
 ╚════════════════════════════════════════╝
 ```
-以防磁盘 IO 对文件 IO 影响过大，给出自己的磁盘信息：WDC PC SN730 SDBPNTY-512G-1027 + OpenZFS-2.2.0-rc3 (zstd compress + dedup)，没有 IO 调度器（`none`）
+以防磁盘 IO 对文件 IO 影响过大，给出自己的磁盘信息：ZHITAI SC001 Active-512GB-B，没有 IO 调度器（`none`）
 
 测试结果
 
 ```
-This test program will generate data and test for 10 times, then take the average for the final result
+This test program will generate data and test for 5 times, then take the average for the final result
 
 Start test 3e6 random double input and output
 
-freopen + scanf + printf 1.230sec
-ifstream + ofstream 1.457sec
-freopen + cin + cout 1.437sec
+freopen + scanf + printf 1.279sec
+ifstream + ofstream 1.436sec
+freopen + cin + cout 1.468sec
 
 Start test 1.5e6 random long long int and 1.5e6 random double input and output
 
-freopen + scanf + printf 0.946sec
-ifstream + ofstream 1.049sec
-freopen + cin + cout 1.056sec
+freopen + scanf + printf 1.227sec
+ifstream + ofstream 1.281sec
+freopen + cin + cout 1.227sec
 
 Start test 3e6 random long long int input and output
 
-freopen + scanf + printf 0.619sec
-ifstream + ofstream 0.192sec
-freopen + cin + cout 0.430sec
-fastio + cstdio 0.536sec
-fastio + fstream 0.928sec
-fread + fwrite 0.350sec
+freopen + scanf + printf 0.615sec
+ifstream + ofstream 0.583sec
+freopen + cin + cout 0.593sec
+fastio + cstdio 0.576sec
+fastio + fstream 1.022sec
+fread + fwrite 0.236sec
+
+Start test 3e6 random unsigned long long int input and output
+
+freopen + scanf + printf 0.603sec
+ifstream + ofstream 0.580sec
+freopen + cin + cout 0.586sec
+fastio + cstdio 0.584sec
+fastio + fstream 1.019sec
+fread + fwrite 0.245sec
 ```
 
 合理选择 IO 方式！
@@ -79,4 +84,6 @@ fread + fwrite 0.350sec
 changelog:
 
 - 2023-8-13: ~~模拟赛搞到了河北领袖 Hs_Black 提供的 fread/fwrite 程序~~ 用自己笔记本（R7-4800H）重测了一发。并添加了 3e6 纯双精度浮点数的测试。  
-  相应的，`int/fread.cxx` 不使用 GPLv3 授权~~（等我自己实现一份）~~，请勿用于其他项目。
+  ~~相应的，`int/fread.cxx` 不使用 GPLv3 授权（等我自己实现一份），请勿用于其他项目~~。
+
+- 2023-9-20 自己实现了 fread/fwrite 程序，重测。
